@@ -1,0 +1,144 @@
+.main-section{
+    background-color: #f1f1f1;
+    padding: 20px 20px 0px 20px;
+}
+.image-main-section{
+    margin-bottom:20px;
+
+}
+.img-part{
+    border-radius: 5px;
+    margin:0px;
+    border:1px solid #DDDDDD;
+    background-color: #fff;
+    padding-bottom: 20px;
+}
+.img-section{
+    padding: 5px;
+}
+.img-section img{
+    width: 100%;
+}
+.image-title h3{
+    margin:0px;
+    color:#4C4C4C;
+    padding: 15px 0px 8px 0px;
+
+}
+.image-description p{
+    color:#848484;
+}
+.view{
+    border-radius:0px;
+    font-size: 11px;
+    
+}
+.panel-footer{
+    margin-left: 500px;
+}
+/*size-selector*/
+.bootstrap-select {
+  max-width: 200px;
+}
+.bootstrap-select .btn {
+  background-color: #141414;
+  border-style: solid;
+  border-left-width: 3px;
+  border-left-color: #00DDDD;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  color: white;
+  font-weight: 200;
+  padding: 12px 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.bootstrap-select .dropdown-menu {
+  margin: 15px 0 0;
+}
+select::-ms-expand {
+  /* for IE 11 */
+  display: none;
+}
+
+/********** MAIN PICTURE **********/
+.magnify {
+    cursor:crosshair;
+}
+ .img-container img{
+    width:100%;
+    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+ }
+ .liveimage 
+
+ {   
+     margin-top: 40px;
+     width: 200px;
+     height:300px;
+     display:none;
+}
+ .onZoom {
+     width:250px;
+     float:none;
+     margin-left:20px;
+     position:absolute;
+}
+ .onZoom img {
+     max-width: 100%;
+}
+ .onZoom {
+     position:absolute;
+     cursor: default; 
+}
+ .magnify-large {
+     position: absolute;
+     border: 2px solid rgb(238, 238, 238);
+      border-radius: 10px; 
+     display: none;
+     width: 370px;
+     height:400px;
+     background-color: rgb(255, 255, 255);
+     background-repeat: no-repeat;
+     overflow: hidden;
+     visibility: visible;
+     background-position: -85.3511px -82.3253px;
+     left: 81.25px; 
+     top: -28px;
+     margin-left: 450px;
+     margin-top: 20px;
+     z-index: 1;
+}
+
+
+ img.liveimage.active {
+     display: inline;
+}
+ .border{
+     border-color: gray;
+}
+
+#mainImage{
+    width:300px;
+    height:300px;
+    -webkit-transition:all 0.5s linear;
+    transition:all 0.5s linear;
+}
+.starRating input { display:none; }
+
+.starRating label { 
+    width: 18px; 
+    height: 16px; 
+    display: inline-block;
+    text-indent: -9999px; /* hide the label text off screen */
+    background: url("http://designmoo.com/wp-content/uploads/2011/01/rating_stars.png") -155px -32px;
+}
+
+.starRating label.on { 
+    background-position: -155px -76px;
+}
