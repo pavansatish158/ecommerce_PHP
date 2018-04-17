@@ -75,12 +75,11 @@
    $comment=mysqli_escape_string($con,$_POST['comment_text']);
    $rating=mysqli_escape_string($con,$_POST['rating_val']);
    
-   
    $sql="INSERT INTO `ratings`(`product_id`,`name`, `comments`, `rating`) VALUES ($product_id,'$comment_name','$comment',$rating)";
    $run_query = mysqli_query($con, $sql);
    exit();
-   
    }
+   
    
    // ratings & reviews display
    if(isset($_POST['display'])){
@@ -90,14 +89,13 @@
    while ($row=mysqli_fetch_array($result)) {
    # code...
    ?>
-	<div id='comment_box'>
-		<lable><b>User reviews:</b></lable>
-	   <lable>Name:</lable>
-	   <b><?php echo $row['name'];?></b>
-	   <lable>  Rated </lable>
-	   <b><?php echo $row['rating'];?></b> stars<br>
-	   <lable> comments: </lable>
-	   <b><?php echo $row['comments'];?></b>
+	<div id='comment_box' class='panel panel-success'>
+	   <div class="panel-heading"><label>Name:</label>
+	   <b><?php echo $row['name'];?></b> <label>Rated</label>
+	   <b><?php echo $row['rating'];?></b> stars</div>
+	   <div class="panel-body">
+	   <label>Comments: </label>
+	   <b><?php echo $row['comments'];?></b></div>
 	</div>
 <?php
    }

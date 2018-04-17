@@ -33,11 +33,11 @@
          #comment_box  {
          margin-bottom: 10px;
          }
-         #comment_box label{
-         color: blue;
-         }
+         .panel-success {
+          width: 70%;
+        }
       </style>
-   </head>
+   </head>  
    <body style="background:#dadde1;">
       <div class="navbar navbar-inverse navbar-fixed-top">
          <div class="container-fluid">
@@ -127,7 +127,7 @@
                               <input type="hidden" name="product_id"  id="product_id" value="<?php echo $product_id?>">
                               <fieldset>
                                  <h3>Rate this product</h3>
-                                 <div class="control-group" id="rating">
+                                 <div class="control-group" id="rating" required>
                                     <table class="controls rating" id="rating">
                                        <tr>
                                           <td>
@@ -148,15 +148,14 @@
                                        </tr>
                                     </table>
                                  </div>
-                                 <input type="text" name="name" value="" id="name" placeholder="your name" ><br><br>
-                                 <textarea id="comments" name="comments" rows="3" placeholder="comments"cols="35" style="resize: none;font-size: 13px;"></textarea>
+                                 <input type="text" name="name" value="" id="name" placeholder="your name" required><br><br>
+                                 <textarea id="comments" name="comments" rows="3" placeholder="comments"cols="35" style="resize: none;font-size: 13px;" required></textarea>
                                  </p>
                                  <input name="submit" type="submit" value="post review" id="submit_review"></p>
                               </fieldset>
-                              
+                              <label><b>User reviews:</b></label>
                               <div id="displayArea"></div>
-                              <!-- comments diplaying throgh ajax -->
-                              </form>
+                              <!-- comments diplaying thruogh ajax -->
                            </div>
                         </div>
                      </div>
@@ -166,6 +165,7 @@
          </div>
       </div>
       <script type="text/javascript">
+         displayFromDatabase();               /*user reviews will be appeared before submitting the details*/
          // on review submission
               $("#submit_review").click(function() {
          
@@ -187,20 +187,16 @@
                "prod_id":product_id
              },
              success:function(data) {
+              if(comment_name.trim()=='' || comment.trim()=='' || rating.trim()==''){   /*If the fields are blank*/
+                alert("Please fill in all details!");
+              }
+              else{
                alert("Review posted successfully!");
-               displayFromDatabase();
+                       displayFromDatabase();   /*after user review submitted review ,this function will be called*/
                $("#name").val('');
                $("#comments").val('');
-               // $("input[name='rating']:checked").val('');
-               function unselect(){
-                 var rating=$("input[name='rating']");
-                 if($(this).attr('checked')){
-                 $(this).removeAttr('checked');
-                 $(this).prop('checked',false);
-                 $(this).find('label').removeClass('on');
-               }
-             }
-         
+                $('input[type="radio":checked]').prop('checked', false);
+              }
              }
            })
          });
@@ -215,15 +211,14 @@
              data:{
                "display":1,
                "prod_id":product_id
-         
-         
+                  
              },
              success: function(d){
                $("#displayArea").html(d);
              }
            });
          }
-            
+
       </script>
    </body>
 </html>
