@@ -221,7 +221,7 @@
    $num_rows= mysqli_num_rows($run_query);
    if($num_rows>0){
     ?>
-<div>Found <?php echo $num_rows;?> results;</div>
+<div class="alert alert-success">Found <?php echo $num_rows;?> results.</div>
 <?php
    while($row = mysqli_fetch_array($run_query))
    {
