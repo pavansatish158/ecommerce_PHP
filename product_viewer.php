@@ -34,7 +34,10 @@
          margin-bottom: 10px;
          }
          .panel-success {
-          width: 70%;
+          /*width: 70%;*/
+         }
+          .panel-body  {
+            word-break:break-all;
         }
       </style>
    </head>  
@@ -84,7 +87,7 @@
          <div class="container" style="margin-top:50px;">
             <div class="panel panel-info">
                <div class="panel-heading">Product Details</div>
-               <div class="panel-body" style="height: 900px !important;">
+               <div class="panel-body" style="">
                   <div class="col-md-12">
                      <div class="col-md-1"  >
                         <div class="img-container">
@@ -116,42 +119,47 @@
                               <p><b style="color:#ea8f18;">Price:</b><b style="color:#f14307;">₹<?php echo $product_price;?></b></p>
                            </div>
                            <div id="size" class="tab-pane fade">
-                              <select id="what" class="form-control selectpicker show-tick" tab-index="-98" style="width:26%;">
-                                 <option disabled selected style="display:none;">--Select Size--</option>
-                                 <option>Small</option>
-                                 <option>Medium</option>
-                                 <option>Large</option>
-                              </select>
+                              <div class="form-group">
+                                <label for="sort" class="col-sm-2 control-label" style="color: #878787;">Size:</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="sort" id="sort" style="width:31%;margin-top: -5px;">
+                                       <option disabled selected style="display:none;">--Select Size--</option>
+                                       <option>Small</option>
+                                       <option>Medium</option>
+                                       <option>Large</option>
+                                    </select>
+                                 </div>
+                              </div>
                            </div>
                            <div id="rating" class="tab-pane fade">
                               <input type="hidden" name="product_id"  id="product_id" value="<?php echo $product_id?>">
                               <fieldset>
                                  <h3>Rate this product</h3>
-                                 <div class="control-group" id="rating" required>
+                                 <div class="control-group" id="rating" >
                                     <table class="controls rating" id="rating">
                                        <tr>
                                           <td>
-                                             <label><input type="radio" name="rating" id="rating" value="1" />1</label>
+                                             <label><input type="radio" name="rating" id="rating" value="1" onchange="check()" />1</label>
                                           </td>
                                           <td>
-                                             <label><input type="radio" name="rating" id="rating" value="2" />2</label>
+                                             <label><input type="radio" name="rating" id="rating" value="2" onchange="check()" />2</label>
                                           </td>
                                           <td>
-                                             <label><input type="radio" name="rating" id="rating" value="3" />3</label>
+                                             <label><input type="radio" name="rating" id="rating" value="3" onchange="check()" />3</label>
                                           </td>
                                           <td>
-                                             <label><input type="radio" name="rating"  id="rating" value="4" />4</label>
+                                             <label><input type="radio" name="rating"  id="rating" value="4" onchange="check()"/>4</label>
                                           </td>
                                           <td>
-                                             <label><input type="radio" name="rating" id="rating" value="5" />5</label>
+                                             <label><input type="radio" name="rating" id="rating" value="5" onchange="check()"/>5</label>
                                           </td>
                                        </tr>
                                     </table>
                                  </div>
-                                 <input type="text" name="name" value="" id="name" placeholder="your name" required><br><br>
-                                 <textarea id="comments" name="comments" rows="3" placeholder="comments"cols="35" style="resize: none;font-size: 13px;" required></textarea>
+                                 <input type="text" name="name" value="" id="name" placeholder="your name" ><br><br>
+                                 <textarea id="comments" name="comments" rows="3" placeholder="comments(max 100 characters)"cols="35" style="resize: none;font-size: 13px;" ></textarea>
                                  </p>
-                                 <input name="submit" type="submit" value="post review" id="submit_review"></p>
+                                 <input name="submit" type="submit" value="post review" id="submit_review" ></p>
                               </fieldset>
                               <label><b>User reviews:</b></label>
                               <div id="displayArea"></div>
@@ -165,16 +173,33 @@
          </div>
       </div>
       <script type="text/javascript">
+
          displayFromDatabase();               /*user reviews will be appeared before submitting the details*/
          // on review submission
               $("#submit_review").click(function() {
-         
+
+          var Length = $("#comments").val().length;
            var comment_name = $("#name").val(); 
            var comment = $("#comments").val();
            var rating=$("input[name='rating']:checked").val();
            var product_id=$("#product_id").val();
            // alert("");
-         
+            if(!rating){
+                alert("Please give rating!");
+              }
+              else if(comment_name.trim()==''){   /*If the fields are blank*/
+                alert("Please fill name!");
+              }
+              else if(comment.trim()==''){
+                alert("Please fill comments box !");
+              }
+              else if(Length<40){
+                alert("Please give atleast 40 characters!");
+              }
+              else if(Length>=100){
+                alert(" 100 characters limit reached!");
+              }
+              else{
            $.ajax({
              type:"POST",
              url:"action.php",
@@ -187,18 +212,15 @@
                "prod_id":product_id
              },
              success:function(data) {
-              if(comment_name.trim()=='' || comment.trim()=='' || rating.trim()==''){   /*If the fields are blank*/
-                alert("Please fill in all details!");
-              }
-              else{
+
                alert("Review posted successfully!");
                        displayFromDatabase();   /*after user review submitted review ,this function will be called*/
                $("#name").val('');
                $("#comments").val('');
                 $('input[type="radio":checked]').prop('checked', false);
-              }
              }
            })
+         }
          });
          
          // display comments
@@ -218,6 +240,8 @@
              }
            });
          }
+
+    $(".tab-content").css('height','1000px');
 
       </script>
    </body>
